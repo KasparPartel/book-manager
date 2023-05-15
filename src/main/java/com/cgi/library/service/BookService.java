@@ -15,8 +15,11 @@ import java.util.UUID;
 @Service
 public class BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public Page<BookDTO> getBooks(Pageable pageable) {
         ModelMapper modelMapper = ModelMapperFactory.getMapper();

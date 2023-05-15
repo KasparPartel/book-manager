@@ -14,8 +14,11 @@ import java.util.UUID;
 @RequestMapping("/api/book")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping(value = "getBooks")
     public ResponseEntity<Page<BookDTO>> getBooks(Pageable pageable) {

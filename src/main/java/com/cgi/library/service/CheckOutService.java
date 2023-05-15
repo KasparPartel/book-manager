@@ -15,8 +15,11 @@ import java.util.UUID;
 @Service
 public class CheckOutService {
 
-    @Autowired
-    private CheckOutRepository checkOutRepository;
+    private final CheckOutRepository checkOutRepository;
+
+    public CheckOutService(CheckOutRepository checkOutRepository) {
+        this.checkOutRepository = checkOutRepository;
+    }
 
     public Page<CheckOutDTO> getCheckOuts(Pageable pageable) {
         ModelMapper modelMapper = ModelMapperFactory.getMapper();

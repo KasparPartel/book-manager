@@ -14,8 +14,11 @@ import java.util.UUID;
 @RequestMapping("/api/checkout")
 public class CheckOutController {
 
-    @Autowired
-    private CheckOutService checkOutService;
+    private final CheckOutService checkOutService;
+
+    public CheckOutController(CheckOutService checkOutService) {
+        this.checkOutService = checkOutService;
+    }
 
     @GetMapping(value = "getCheckouts")
     public ResponseEntity<Page<CheckOutDTO>> getCheckOuts(Pageable pageable) {
