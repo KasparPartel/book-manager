@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../services/book.service';
 import { Observable } from 'rxjs';
-import { Page } from '../../models/page';
+import {Page, PageRequest} from '../../models/page';
 import { Book } from '../../models/book';
 
 @Component({
@@ -19,9 +19,15 @@ export class BooksListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO this observable should emit books taking into consideration pagination, sorting and filtering options.
-    this.books$ = this.bookService.getBooks({});
+    const filter: Partial<PageRequest> = {
+      pageIndex: 0,
+      pageSize: 50,
+      sort: "",
+      direction: "",
+    }
 
+    // TODO this observable should emit books taking into consideration pagination, sorting and filtering options.
+    this.books$ = this.bookService.getBooks(filter);
   }
 
 }

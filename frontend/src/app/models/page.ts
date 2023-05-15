@@ -6,7 +6,7 @@ export type SortDirection = 'asc' | 'desc' | '';
 export interface Page<T> {
   content: T[];
   totalElements: number;
-  number: number; // page number
+  pageNumber: number;
   totalPages: number;
 }
 
