@@ -4,14 +4,21 @@ import { buildParams } from "@/util/rest";
 import Link from "next/link";
 import Pagination from "@/app/books/pagination";
 
-export default async function BooksPage() {
+export default async function BooksPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  // console.log("searchParams", searchParams);
+
   const filter: PageRequest = {
-    pageIndex: 0,
-    pageSize: 35,
+    pageIndex: parseInt(searchParams?.page ?? "1", 10) - 1,
+    pageSize: parseInt(searchParams?.size ?? "35", 10),
   };
 
   const data = await fetch(
-    `${process.env.BACKEND_ROOT_PATH}/getBooks` + buildParams(filter)
+    `${process.env.BACKEND_ROOT_PATH}/getBooks` + buildParams(filter),
+    { cache: "no-cache" }
   );
   const page: Page<Book> = await data.json();
   // console.log(page);
