@@ -3,6 +3,7 @@ import { Book } from "@/models/book";
 import { buildParams } from "@/util/rest";
 import Link from "next/link";
 import Pagination from "@/app/books/pagination";
+import Sorting from "@/app/books/sorting";
 
 export default async function BooksPage({
   searchParams,
@@ -26,7 +27,8 @@ export default async function BooksPage({
   return (
     <section>
       <h1 className="text-xl font-bold">Books</h1>
-      <Pagination totalPages={page.totalPages} />
+      <Pagination totalPages={page.totalPages} searchParams={searchParams} />
+      <Sorting searchParams={searchParams} />
       {page.content.map((book) => (
         <Book key={book.id} book={book} />
       ))}
