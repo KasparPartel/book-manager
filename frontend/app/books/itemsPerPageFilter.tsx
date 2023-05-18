@@ -1,22 +1,26 @@
 import Link from "next/link";
 import buildQueryParams from "@/util/params";
 
-export default function Sorting({
+export default function ItemsPerPageFilter({
+  options,
   searchParams,
 }: {
+  options: number[];
   searchParams: { [key: string]: string | undefined };
 }) {
-  const options = [20, 35, 45, 50, 100];
   const activeOption = parseInt(searchParams?.size ?? "35", 10);
 
   return (
-    <section className="border-2">
+    <section className="">
       Items per page
       <ul className="flex gap-2">
         {options.map((option, i) => {
           searchParams["size"] = option.toString();
-          if (searchParams["size"] != activeOption.toString())
+
+          // FIXME same size changes page to 1 - shouldn't
+          if (searchParams["size"] != activeOption.toString()) {
             searchParams["page"] = "1";
+          }
 
           return (
             <li key={i} className={option == activeOption ? "font-bold" : ""}>

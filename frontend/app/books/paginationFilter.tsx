@@ -1,7 +1,7 @@
 import Link from "next/link";
 import buildQueryParams from "@/util/params";
 
-export default function Pagination({
+export default function PaginationFilter({
   totalPages,
   searchParams,
 }: {
