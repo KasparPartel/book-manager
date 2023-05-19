@@ -1,14 +1,16 @@
 import Link from "next/link";
-import buildQueryParams from "@/util/params";
+import buildQueryParams, { SearchParams } from "@/util/params";
 
 export default function ItemsPerPageFilter({
+  url,
   options,
   searchParams,
 }: {
+  url: string;
   options: number[];
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Partial<SearchParams>;
 }) {
-  const activeOption = parseInt(searchParams?.size ?? "35", 10);
+  const activeOption = parseInt(searchParams.size ?? "35", 10);
 
   return (
     <section className="">
@@ -24,9 +26,7 @@ export default function ItemsPerPageFilter({
 
           return (
             <li key={i} className={option == activeOption ? "font-bold" : ""}>
-              <Link href={"/books" + buildQueryParams(searchParams)}>
-                {option}
-              </Link>
+              <Link href={url + buildQueryParams(searchParams)}>{option}</Link>
             </li>
           );
         })}

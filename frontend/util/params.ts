@@ -1,9 +1,18 @@
+import { SortDirection } from "@/models/page";
+
+export interface SearchParams {
+  page: string;
+  size: string;
+  sort: string;
+  direction: SortDirection;
+}
+
 /*
  * Builds the query parameter part of URL
  */
-export default function buildQueryParams(queryParams: {
-  [key: string]: string | undefined;
-}) {
+export default function buildQueryParams(queryParams: Partial<SearchParams>) {
+  console.log(queryParams);
+
   let path = "?";
 
   for (let [k, v] of Object.entries(queryParams)) {

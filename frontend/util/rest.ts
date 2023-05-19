@@ -10,9 +10,11 @@ export const buildParams = (filter: Partial<PageRequest>): String => {
   if (pageSize != null) {
     params += `size=${pageSize}&`;
   }
-  if (sort != null) {
+  if (sort != undefined) {
     params += `sort=${sort + "," + direction ?? ""}&`;
   }
+
+  params = params.slice(0, params.length - 1); // to remove last &
 
   return params;
 };

@@ -1,14 +1,16 @@
 import Link from "next/link";
-import buildQueryParams from "@/util/params";
+import buildQueryParams, { SearchParams } from "@/util/params";
 
 export default function PaginationFilter({
+  url,
   totalPages,
   searchParams,
 }: {
+  url: string;
   totalPages: number;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Partial<SearchParams>;
 }) {
-  const activePage = parseInt(searchParams?.page ?? "1", 10);
+  const activePage = parseInt(searchParams.page ?? "1", 10);
 
   return (
     <ul className="flex gap-2">
@@ -17,7 +19,7 @@ export default function PaginationFilter({
 
         return (
           <li key={i} className={v == activePage ? "font-bold" : ""}>
-            <Link href={"/books" + buildQueryParams(searchParams)}>{v}</Link>
+            <Link href={url + buildQueryParams(searchParams)}>{v}</Link>
           </li>
         );
       })}
