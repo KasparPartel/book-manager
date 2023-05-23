@@ -16,7 +16,7 @@ export default function BookLayout({
 
   return (
     <section>
-      <button onClick={(e) => handleBack(e)}>back button</button>
+      <button onClick={(e) => handleBack(e)}>⬅️</button>
       {children}
     </section>
   );

@@ -8,10 +8,12 @@ import createFilter from "@/util/FilterFactory";
 import { buildParams } from "@/util/rest";
 
 const getCheckouts = async (filter: PageRequest) => {
-  const res = await fetch(
-    process.env.API_ROOT + "checkout/getCheckouts" + buildParams(filter)
-  );
-  return await res.json();
+  const url =
+    process.env.NEXT_PUBLIC_API_ROOT +
+    "checkout/getCheckouts" +
+    buildParams(filter);
+  const res = await fetch(url, { cache: "no-cache" });
+  return res.json();
 };
 
 export default async function CheckoutsPage({

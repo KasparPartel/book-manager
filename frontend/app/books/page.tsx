@@ -9,12 +9,12 @@ import PaginationFilter from "@/components/PaginationFilter";
 import createFilter from "@/util/FilterFactory";
 
 const getBooks = async (filter: PageRequest) => {
-  const res = await fetch(
-    process.env.NEXT_PUBLIC_API_ROOT + "/book/getBooks" + buildParams(filter),
-    { cache: "no-cache" }
-  );
+  const url =
+    process.env.NEXT_PUBLIC_API_ROOT + "book/getBooks" + buildParams(filter);
+  
+  const res = await fetch(url, { cache: "no-cache" });
 
-  return await res.json();
+  return res.json();
 };
 
 export default async function BooksPage({
