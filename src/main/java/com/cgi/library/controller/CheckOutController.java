@@ -36,8 +36,9 @@ public class CheckOutController {
     }
 
     @PostMapping(value = "checkout")
-    public ResponseEntity<UUID> saveCheckOut(@RequestBody CheckOutDTO checkOutDTO) {
-        return ResponseEntity.ok(checkOutService.saveCheckOut(checkOutDTO));
+    public ResponseEntity<String> saveCheckOut(@RequestBody CheckOutDTO checkOutDTO) {
+        checkOutService.saveCheckOut(checkOutDTO);
+        return ResponseEntity.ok("");
     }
 
     @DeleteMapping(value = "checkout")
