@@ -6,24 +6,25 @@ import { SearchParams } from "@/util/params";
 import ItemsPerPageFilter from "@/components/ItemsPerPageFilter";
 import SortingFilter from "@/components/SortingFilter";
 import PaginationFilter from "@/components/PaginationFilter";
+import createFilter from "@/util/FilterFactory";
+
+const getBooks = async (filter: PageRequest) => {
+  const res = await fetch(
+    process.env.API_ROOT + "/book/getBooks" + buildParams(filter),
+    { cache: "no-cache" }
+  );
+
+  return await res.json();
+};
 
 export default async function BooksPage({
   searchParams,
 }: {
   searchParams: Partial<SearchParams>;
 }) {
-  const filter: PageRequest = {
-    pageIndex: parseInt(searchParams.page ?? "1", 10) - 1,
-    pageSize: parseInt(searchParams.size ?? "35", 10),
-    sort: searchParams.sort ?? undefined,
-    direction: searchParams.direction ?? undefined,
-  };
+  const filter: PageRequest = createFilter(searchParams);
 
-  const data = await fetch(
-    `${process.env.BACKEND_ROOT_PATH}/getBooks` + buildParams(filter),
-    { cache: "no-cache" }
-  );
-  const page: Page<Book> = await data.json();
+  const page: Page<Book> = await getBooks(filter);
 
   return (
     <section>

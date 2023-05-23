@@ -5,7 +5,6 @@ import com.cgi.library.model.CheckOutDTO;
 import com.cgi.library.repository.CheckOutRepository;
 import com.cgi.library.util.ModelMapperFactory;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,8 +30,9 @@ public class CheckOutService {
         return ModelMapperFactory.getMapper().map(checkOut, CheckOutDTO.class);
     }
 
-    public void saveCheckOut(CheckOutDTO checkOutDTO) {
-        checkOutRepository.save(ModelMapperFactory.getMapper().map(checkOutDTO, CheckOut.class));
+    public UUID saveCheckOut(CheckOutDTO checkOutDTO) {
+        CheckOut checkout = checkOutRepository.save(ModelMapperFactory.getMapper().map(checkOutDTO, CheckOut.class));
+        return checkout.getId();
     }
 
     public void deleteCheckOut(UUID checkOutId) {

@@ -21,7 +21,7 @@ export default function RootLayout({
                 <Link href="/books">books</Link>
               </li>
               <li>
-                <Link href="/checkout">checkout</Link>
+                <Link href="/checkouts">checkout</Link>
               </li>
             </ul>
           </nav>

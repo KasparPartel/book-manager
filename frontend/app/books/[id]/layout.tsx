@@ -1,9 +1,22 @@
-import Link from "next/link";
+"use client";
 
-export default function BookLyout({ children }: { children: React.ReactNode }) {
+import { useRouter } from "next/navigation";
+
+export default function BookLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+
+  const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    router.back();
+  };
+
   return (
     <section>
-      <Link href="/books">back button</Link>
+      <button onClick={(e) => handleBack(e)}>back button</button>
       {children}
     </section>
   );
