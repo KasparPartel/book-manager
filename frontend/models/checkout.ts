@@ -1,11 +1,12 @@
 import { Book } from "@/models/book";
+import { UUID } from "crypto";
 
 export default interface Checkout {
-  id: string;
+  id?: UUID;
   borrowerFirstName: string;
   borrowerLastName: string;
   borrowedBook: Book;
   checkedOutDate: string;
   dueDate: string;
-  returnedDate: string;
+  returnedDate: string | null;
 }

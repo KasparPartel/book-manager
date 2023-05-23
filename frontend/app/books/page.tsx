@@ -10,7 +10,7 @@ import createFilter from "@/util/FilterFactory";
 
 const getBooks = async (filter: PageRequest) => {
   const res = await fetch(
-    process.env.API_ROOT + "/book/getBooks" + buildParams(filter),
+    process.env.NEXT_PUBLIC_API_ROOT + "/book/getBooks" + buildParams(filter),
     { cache: "no-cache" }
   );
 

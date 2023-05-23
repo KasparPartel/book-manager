@@ -2,36 +2,47 @@
 
 import { useRouter } from "next/navigation";
 import { Book } from "@/models/book";
+import moment from "moment";
+import Checkout from "@/models/checkout";
 
-const checkoutBook = async (book: Book) => {
-  const url = process.env.API_ROOT + "checkout";
-  return await fetch(url, {
+const checkoutBook = async (checkout: Checkout) => {
+  const url = process.env.NEXT_PUBLIC_API_ROOT + "checkout/checkout";
+  const res = await fetch(url, {
     method: "POST",
-    body: JSON.stringify({
-      borrowerFirstName: "test",
-      borrowerLastName: "test",
-      borrowedBook: book,
-      checked_out_date: "2023-05-23",
-      due_date: "2023-06-23",
-    }),
+    body: JSON.stringify(checkout),
+    headers: { "Content-Type": "application/json" },
+    cache: "no-cache",
   });
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.text();
+  // return res.json();
 };
 
 export default function CheckoutChanger({ book }: { book: Book }) {
   const router = useRouter();
 
+  const dateNow = moment().format("yyyy-MM-DD");
+  const dateDue = moment().add(1, "month").format("yyyy-MM-DD");
+
+  const checkout: Checkout = {
+    borrowerFirstName: "testEes",
+    borrowerLastName: "testPere",
+    borrowedBook: book,
+    checkedOutDate: dateNow,
+    dueDate: dateDue,
+    returnedDate: null,
+  };
+
   const handleClick = async () => {
-    const url = process.env.API_ROOT + "checkout";
-    console.log(url);
-    // const res = await checkoutBook(book);
-    // if (!res.ok) {
-    //   console.error(res.status);
-    //   return;
-    // }
-    //
-    // const data: UUID = await res.json();
-    // console.log(data);
-    // router.refresh();
+    try {
+      const data = await checkoutBook(checkout);
+      console.log(data);
+      router.refresh();
+    } catch (e) {
+      console.error((e as Error).message);
+    }
   };
 
   return book.status == "AVAILABLE" ? (

@@ -9,13 +9,14 @@ const ibmPlexSerif = IBM_Plex_Serif({
 });
 
 const getBook = async (id: string): Promise<Book> => {
-  const url = process.env.API_ROOT + `book/getBook?bookId=${id}`;
+  const url = process.env.NEXT_PUBLIC_API_ROOT + `book/getBook?bookId=${id}`;
   const res = await fetch(url);
   return await res.json();
 };
 
 export default async function BookPage({ params }: { params: { id: string } }) {
   const book = await getBook(params.id);
+  console.log(book);
 
   if (!book) return <div>Loading</div>;
   return (
@@ -30,8 +31,8 @@ export default async function BookPage({ params }: { params: { id: string } }) {
       <p>{book.year}</p>
       <p>{book.genre}</p>
       <hr />
-      {Object.entries(book).map((bookItem) => (
-        <p key="">{bookItem}</p>
+      {Object.entries(book).map((bookItem, i) => (
+        <p key={i}>{bookItem}</p>
       ))}
     </article>
   );
