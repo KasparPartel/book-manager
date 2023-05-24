@@ -7,11 +7,12 @@ import ItemsPerPageFilter from "@/components/ItemsPerPageFilter";
 import SortingFilter from "@/components/SortingFilter";
 import PaginationFilter from "@/components/PaginationFilter";
 import createFilter from "@/util/FilterFactory";
+import SaveBook from "@/app/books/SaveBook";
 
 const getBooks = async (filter: PageRequest) => {
   const url =
     process.env.NEXT_PUBLIC_API_ROOT + "book/getBooks" + buildParams(filter);
-  
+
   const res = await fetch(url, { cache: "no-cache" });
 
   return res.json();
@@ -55,10 +56,14 @@ export default async function BooksPage({
 
 function Book({ book }: { book: Book }) {
   return (
-    <article className="p-3 bg-red-300">
+    <article className="flex justify-between align-baseline p-3 bg-red-300">
       <h3>
         <Link href={`/books/${book.id}`}>{book.title}</Link> - {book.author}
       </h3>
+      <div className="flex gap-2">
+        <p>{book.status}</p>
+        <SaveBook bookId={book.id} />
+      </div>
     </article>
   );
 }
