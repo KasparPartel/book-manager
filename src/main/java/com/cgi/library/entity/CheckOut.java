@@ -3,7 +3,13 @@ package com.cgi.library.entity;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -13,7 +19,8 @@ public class CheckOut {
 
     @Id
     @Column
-    @Type(type="uuid-char")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(name = "borrower_first_name")

@@ -40,10 +40,12 @@ export function ModalForm({
 export function ModalTextInput({
   name,
   placeholder,
+  onChange,
   required,
 }: {
   name?: string;
   placeholder?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 }) {
   return (
@@ -52,6 +54,7 @@ export function ModalTextInput({
       name={name ?? ""}
       placeholder={placeholder ?? ""}
       className="rounded p-1 border-2 border-neutral-950"
+      onChange={(e) => onChange(e)}
       required={required}
     />
   );

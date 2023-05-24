@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Book } from "@/models/book";
 import moment from "moment";
-import Checkout from "@/models/checkout";
+import Checkout, { isCheckoutValid } from "@/models/checkout";
 import React, { useState } from "react";
 import Modal, {
   ModalForm,
@@ -23,22 +23,6 @@ const postCheckout = async (checkout: Checkout) => {
   if (!res.ok) throw new Error("Something went wrong.");
 };
 
-const isCheckoutValid = (checkout: Checkout) => {
-  // const errors: Error[] = [];
-
-  if (checkout.borrowerFirstName == "") {
-    // errors.push(new Error("First name is empty or not valid!"));
-    throw new Error("First name is empty or not valid!");
-  }
-  if (checkout.borrowerLastName == "") {
-    // errors.push(new Error("Last name is empty or not valid!"));
-    throw new Error("Last name is empty or not valid!");
-  }
-
-  // if (errors.length != 0) throw errors;
-  return true;
-};
-
 const dateNow = moment().format("yyyy-MM-DD");
 const dateDue = moment().add(1, "month").format("yyyy-MM-DD");
 
@@ -53,15 +37,6 @@ export default function CheckoutChanger({ book }: { book: Book }) {
     returnedDate: null,
   });
   const router = useRouter();
-
-  // const checkout: Checkout = {
-  //   borrowerFirstName: firstNameRef.current?.value ?? "",
-  //   borrowerLastName: lastNameRef.current?.value ?? "",
-  //   borrowedBook: book,
-  //   checkedOutDate: dateNow,
-  //   dueDate: dateDue,
-  //   returnedDate: null,
-  // };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,7 +54,25 @@ export default function CheckoutChanger({ book }: { book: Book }) {
     setModalOpen(!modalOpen);
   };
 
-  const handleChange = (inputName: string) => {};
+  const handleChange = (inputName: string) => {
+    return function (e: React.ChangeEvent<HTMLInputElement>) {
+      setCheckout((prevState) => {
+        if (inputName == "firstName") {
+          return {
+            ...prevState,
+            borrowerFirstName: e.target.value,
+          };
+        }
+        if (inputName == "lastName") {
+          return {
+            ...prevState,
+            borrowerLastName: e.target.value,
+          };
+        }
+        return { ...prevState };
+      });
+    };
+  };
 
   return book.status == "AVAILABLE" ? (
     modalOpen ? (
@@ -88,11 +81,13 @@ export default function CheckoutChanger({ book }: { book: Book }) {
           <ModalTextInput
             name="firstName"
             placeholder="First name"
+            onChange={handleChange("firstName")}
             required={true}
           />
           <ModalTextInput
             name="lastName"
             placeholder="Last name"
+            onChange={handleChange("lastName")}
             required={true}
           />
           <ModalFormButton value="Checkout book" />
