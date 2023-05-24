@@ -2,15 +2,17 @@ import Link from "next/link";
 import buildQueryParams, { SearchParams } from "@/util/params";
 import { SortDirection } from "@/models/page";
 
+interface SortingFilterProps {
+  url: string;
+  sortOn: string;
+  searchParams: Partial<SearchParams>;
+}
+
 export default function SortingFilter({
   url,
   sortOn,
   searchParams,
-}: {
-  url: string;
-  sortOn: string;
-  searchParams: Partial<SearchParams>;
-}) {
+}: SortingFilterProps) {
   const sortDirections: SortDirection[] = ["asc", "desc", ""];
   const activeSort = searchParams.direction;
 

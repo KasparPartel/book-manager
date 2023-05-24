@@ -1,5 +1,5 @@
 import "./globals.css";
-import Link from "next/link";
+import Navbar from "@/app/Navbar";
 
 export const metadata = {
   title: "CGI Library",
@@ -11,20 +11,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const routes: { [key: string]: string } = {
+    books: "/books",
+    favourites: "/favourites",
+    checkouts: "/checkouts",
+  };
+
   return (
     <html lang="en">
       <body className="mx-12 lg:mx-24">
         <header>
-          <nav className="py-2">
-            <ul className="flex justify-center gap-4">
-              <li>
-                <Link href="/books">books</Link>
-              </li>
-              <li>
-                <Link href="/checkouts">checkout</Link>
-              </li>
-            </ul>
-          </nav>
+          <Navbar routes={routes} />
         </header>
         <main>{children}</main>
       </body>

@@ -4,7 +4,7 @@ import PaginationFilter from "@/components/PaginationFilter";
 import ItemsPerPageFilter from "@/components/ItemsPerPageFilter";
 import SortingFilter from "@/components/SortingFilter";
 import { SearchParams } from "@/util/params";
-import createFilter from "@/util/FilterFactory";
+import createFilter from "@/util/filterFactory";
 import { buildParams } from "@/util/rest";
 
 const getCheckouts = async (filter: PageRequest) => {
@@ -16,15 +16,15 @@ const getCheckouts = async (filter: PageRequest) => {
   return res.json();
 };
 
+interface CheckoutsPageProps {
+  searchParams: Partial<SearchParams>;
+}
+
 export default async function CheckoutsPage({
   searchParams,
-}: {
-  searchParams: Partial<SearchParams>;
-}) {
+}: CheckoutsPageProps) {
   const filter: PageRequest = createFilter(searchParams);
-
   const page: Page<Checkout> = await getCheckouts(filter);
-  console.log(page);
 
   return (
     <>

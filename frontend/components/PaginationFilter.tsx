@@ -1,15 +1,17 @@
 import Link from "next/link";
 import buildQueryParams, { SearchParams } from "@/util/params";
 
+interface PaginationFilterProps {
+  url: string;
+  totalPages: number;
+  searchParams: Partial<SearchParams>;
+}
+
 export default function PaginationFilter({
   url,
   totalPages,
   searchParams,
-}: {
-  url: string;
-  totalPages: number;
-  searchParams: Partial<SearchParams>;
-}) {
+}: PaginationFilterProps) {
   const activePage = parseInt(searchParams.page ?? "1", 10);
 
   return (

@@ -1,15 +1,17 @@
 import Link from "next/link";
 import buildQueryParams, { SearchParams } from "@/util/params";
 
+interface ItemsPerPageFilterProps {
+  url: string;
+  options: number[];
+  searchParams: Partial<SearchParams>;
+}
+
 export default function ItemsPerPageFilter({
   url,
   options,
   searchParams,
-}: {
-  url: string;
-  options: number[];
-  searchParams: Partial<SearchParams>;
-}) {
+}: ItemsPerPageFilterProps) {
   const activeOption = parseInt(searchParams.size ?? "35", 10);
 
   return (

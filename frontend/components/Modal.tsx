@@ -1,12 +1,11 @@
 import React from "react";
 
-export default function Modal({
-  children,
-  setModalOpen,
-}: {
+interface ModalProps {
   children: React.ReactNode;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+}
+
+export default function Modal({ children, setModalOpen }: ModalProps) {
   const handleClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setModalOpen(false);
@@ -23,13 +22,12 @@ export default function Modal({
   );
 }
 
-export function ModalForm({
-  children,
-  onSubmit,
-}: {
+interface ModalFormProps {
   children: React.ReactNode;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}) {
+}
+
+export function ModalForm({ children, onSubmit }: ModalFormProps) {
   return (
     <form className="flex flex-col gap-2" onSubmit={(e) => onSubmit(e)}>
       {children}
@@ -37,17 +35,19 @@ export function ModalForm({
   );
 }
 
+interface ModalTextInputProps {
+  name?: string;
+  placeholder?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}
+
 export function ModalTextInput({
   name,
   placeholder,
   onChange,
   required,
-}: {
-  name?: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-}) {
+}: ModalTextInputProps) {
   return (
     <input
       type="text"
@@ -60,7 +60,11 @@ export function ModalTextInput({
   );
 }
 
-export function ModalFormButton({ value }: { value: string }) {
+interface ModalButton {
+  value: string;
+}
+
+export function ModalButton({ value }: ModalButton) {
   return (
     <button className="rounded-lg p-2 bg-black text-white">{value}</button>
   );

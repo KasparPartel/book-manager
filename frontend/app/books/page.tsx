@@ -1,30 +1,26 @@
 import { Page, PageRequest } from "@/models/page";
 import { Book } from "@/models/book";
 import { buildParams } from "@/util/rest";
-import Link from "next/link";
 import { SearchParams } from "@/util/params";
 import ItemsPerPageFilter from "@/components/ItemsPerPageFilter";
 import SortingFilter from "@/components/SortingFilter";
 import PaginationFilter from "@/components/PaginationFilter";
-import createFilter from "@/util/FilterFactory";
-import SaveBook from "@/app/books/SaveBook";
+import createFilter from "@/util/filterFactory";
+import BookShort from "@/app/books/BookShort";
 
 const getBooks = async (filter: PageRequest) => {
   const url =
     process.env.NEXT_PUBLIC_API_ROOT + "book/getBooks" + buildParams(filter);
-
   const res = await fetch(url, { cache: "no-cache" });
-
   return res.json();
 };
 
-export default async function BooksPage({
-  searchParams,
-}: {
+interface BooksPageProps {
   searchParams: Partial<SearchParams>;
-}) {
-  const filter: PageRequest = createFilter(searchParams);
+}
 
+export default async function BooksPage({ searchParams }: BooksPageProps) {
+  const filter: PageRequest = createFilter(searchParams);
   const page: Page<Book> = await getBooks(filter);
 
   return (
@@ -47,23 +43,9 @@ export default async function BooksPage({
       />
       <section className="flex flex-col gap-2">
         {page.content.map((book) => (
-          <Book key={book.id} book={book} />
+          <BookShort key={book.id} book={book} />
         ))}
       </section>
     </section>
-  );
-}
-
-function Book({ book }: { book: Book }) {
-  return (
-    <article className="flex justify-between align-baseline p-3 bg-red-300">
-      <h3>
-        <Link href={`/books/${book.id}`}>{book.title}</Link> - {book.author}
-      </h3>
-      <div className="flex gap-2">
-        <p>{book.status}</p>
-        <SaveBook bookId={book.id} />
-      </div>
-    </article>
   );
 }

@@ -15,11 +15,13 @@ const getBook = async (id: string): Promise<Book> => {
   return await res.json();
 };
 
-export default async function BookPage({ params }: { params: { id: string } }) {
-  const book = await getBook(params.id);
-  console.log(book);
+interface BookPageProps {
+  params: { id: string };
+}
 
-  if (!book) return <div>Loading</div>;
+export default async function BookPage({ params }: BookPageProps) {
+  const book = await getBook(params.id);
+  
   return (
     <article>
       <CheckoutChanger book={book} />

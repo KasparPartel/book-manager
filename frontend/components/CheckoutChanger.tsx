@@ -6,8 +6,8 @@ import moment from "moment";
 import Checkout, { isCheckoutValid } from "@/models/checkout";
 import React, { useState } from "react";
 import Modal, {
+  ModalButton,
   ModalForm,
-  ModalFormButton,
   ModalTextInput,
 } from "@/components/Modal";
 
@@ -25,8 +25,13 @@ const postCheckout = async (checkout: Checkout) => {
 
 const dateNow = moment().format("yyyy-MM-DD");
 const dateDue = moment().add(1, "month").format("yyyy-MM-DD");
+const checkoutBase = {};
 
-export default function CheckoutChanger({ book }: { book: Book }) {
+interface CheckoutChangerProps {
+  book: Book;
+}
+
+export default function CheckoutChanger({ book }: CheckoutChangerProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [checkout, setCheckout] = useState<Checkout>({
     borrowerFirstName: "",
@@ -42,15 +47,15 @@ export default function CheckoutChanger({ book }: { book: Book }) {
     e.preventDefault();
 
     try {
-      if (isCheckoutValid(checkout)) await postCheckout(checkout);
+      isCheckoutValid(checkout) && (await postCheckout(checkout));
       router.refresh();
-      switchModal();
+      switchModalOpen();
     } catch (e) {
       console.error((e as Error).message);
     }
   };
 
-  const switchModal = () => {
+  const switchModalOpen = () => {
     setModalOpen(!modalOpen);
   };
 
@@ -90,11 +95,11 @@ export default function CheckoutChanger({ book }: { book: Book }) {
             onChange={handleChange("lastName")}
             required={true}
           />
-          <ModalFormButton value="Checkout book" />
+          <ModalButton value="Checkout book" />
         </ModalForm>
       </Modal>
     ) : (
-      <p onClick={switchModal}>Checkout book</p>
+      <p onClick={switchModalOpen}>Checkout book</p>
     )
   ) : (
     <p>Book not available</p>

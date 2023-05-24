@@ -3,7 +3,11 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
-export default function SaveBook({ bookId }: { bookId: string }) {
+interface SaveBookProps {
+  bookId: string;
+}
+
+export default function SaveBook({ bookId }: SaveBookProps) {
   const router = useRouter();
   const data = localStorage.getItem("saved-book-ids");
   const bookIds: string[] = data ? JSON.parse(data) : [];
