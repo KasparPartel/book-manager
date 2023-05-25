@@ -1,6 +1,8 @@
 import Checkout from "@/models/checkout";
 import moment from "moment";
 import StatusDiv from "@/components/styling/StatusDiv";
+import Link from "next/link";
+import ReturnBook from "@/app/checkouts/ReturnBook";
 
 interface CheckoutProps {
   checkout: Checkout;
@@ -22,7 +24,11 @@ export default function CheckoutShort({ checkout }: CheckoutProps) {
             <p className="text-sm">overdue</p>
           </StatusDiv>
         )}
-        <h1 className="text-lg font-heading">{checkout.borrowedBook.title}</h1>
+        <h1 className="text-lg font-heading">
+          <Link href={`/books/${checkout.borrowedBook.id}`}>
+            {checkout.borrowedBook.title}
+          </Link>
+        </h1>
         <p>
           Checked out by{" "}
           <span className="font-bold">
@@ -32,9 +38,7 @@ export default function CheckoutShort({ checkout }: CheckoutProps) {
         </p>
         <p>Due date: {checkout.dueDate} </p>
       </section>
-      <button className="border-2 border-blue-400 py-2 px-4 rounded-lg hover:bg-blue-400 transition-all duration:150 hover:text-white hover:font-bold">
-        Return book
-      </button>
+      <ReturnBook checkoutId={checkout.id} />
     </article>
   );
 }

@@ -25,7 +25,6 @@ const postCheckout = async (checkout: Checkout) => {
 
 const dateNow = moment().format("yyyy-MM-DD");
 const dateDue = moment().add(1, "month").format("yyyy-MM-DD");
-const checkoutBase = {};
 
 interface CheckoutChangerProps {
   book: Book;
@@ -86,7 +85,7 @@ export default function CheckoutChanger({ book }: CheckoutChangerProps) {
         onClick={switchModalOpen}
         disabled={book.status != "AVAILABLE" && true}
       >
-        {book.status == "AVAILABLE" ? "CheckoutShort book" : "Not available"}
+        {book.status == "AVAILABLE" ? "Checkout book" : "Not available"}
       </button>
 
       {modalOpen && (
