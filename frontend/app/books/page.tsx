@@ -8,6 +8,7 @@ import PaginationFilter from "@/components/PaginationFilter";
 import createFilter from "@/util/filterFactory";
 import BookShort from "@/app/books/BookShort";
 import PageHeading from "@/components/styling/PageHeading";
+import FilterContainer from "@/components/styling/FilterContainer";
 
 const getBooks = async (filter: PageRequest) => {
   const url =
@@ -27,7 +28,7 @@ export default async function BooksPage({ searchParams }: BooksPageProps) {
   return (
     <section className="flex flex-col gap-6">
       <PageHeading text="Book Library" />
-      <section className="flex flex-wrap justify-between items-center gap-2 p-4 rounded-lg bg-blue-300 sticky">
+      <FilterContainer>
         <PaginationFilter
           url="/books"
           totalPages={page.totalPages}
@@ -45,7 +46,7 @@ export default async function BooksPage({ searchParams }: BooksPageProps) {
             searchParams={searchParams}
           />
         </div>
-      </section>
+      </FilterContainer>
       <section className="flex flex-col gap-2">
         {page.content.map((book) => (
           <BookShort key={book.id} book={book} />

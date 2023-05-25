@@ -8,7 +8,7 @@ export default function StatusDiv({ color, children }: StatusDivProps) {
     <div
       className={`${
         color == "green" ? "bg-green-300" : "bg-red-300"
-      } py-1 px-2 rounded-md`}
+      } py-1 px-2 rounded-md w-fit`}
     >
       {children}
     </div>

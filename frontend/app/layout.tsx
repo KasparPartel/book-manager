@@ -30,11 +30,11 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${inter.className} ${ibmPlexSerif.variable}`}>
-      <body>
+      <body className="scroll-smooth">
         <header>
           <Navbar routes={routes} />
         </header>
-        <main className="px-12 md:px-24 lg:px-36 py-10">{children}</main>
+        <main className="px-12 md:px-24 lg:px-36 py-20">{children}</main>
       </body>
     </html>
   );

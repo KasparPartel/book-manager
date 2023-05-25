@@ -86,7 +86,7 @@ export default function CheckoutChanger({ book }: CheckoutChangerProps) {
         onClick={switchModalOpen}
         disabled={book.status != "AVAILABLE" && true}
       >
-        {book.status == "AVAILABLE" ? "Checkout book" : "Not available"}
+        {book.status == "AVAILABLE" ? "CheckoutShort book" : "Not available"}
       </button>
 
       {modalOpen && (
@@ -104,7 +104,7 @@ export default function CheckoutChanger({ book }: CheckoutChangerProps) {
               onChange={handleChange("lastName")}
               required={true}
             />
-            <ModalButton value="Checkout book" />
+            <ModalButton value="CheckoutShort book" />
           </ModalForm>
         </Modal>
       )}

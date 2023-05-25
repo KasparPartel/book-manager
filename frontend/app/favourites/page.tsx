@@ -8,13 +8,15 @@ export default function FavouritesPage() {
   const bookIds: string[] = data ? JSON.parse(data) : null;
 
   return (
-    <section>
+    <section className="flex flex-col gap-6">
       <PageHeading text="Favourites" />
-      {bookIds ? (
-        bookIds.map((id) => <BookShort key={id} bookId={id} />)
-      ) : (
-        <p>No books in favourites yet!</p>
-      )}
+      <section className="flex flex-col gap-2">
+        {bookIds ? (
+          bookIds.map((id) => <BookShort key={id} bookId={id} />)
+        ) : (
+          <p>No books in favourites yet!</p>
+        )}
+      </section>
     </section>
   );
 }

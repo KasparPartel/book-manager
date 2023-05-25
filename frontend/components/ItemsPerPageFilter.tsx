@@ -29,12 +29,12 @@ export default function ItemsPerPageFilter({
           return (
             <li
               key={i}
-              className={`
+              className={`hover:font-bold transition-all duration-150 py-1 px-2 rounded-md
                 ${
                   option == activeOption
                     ? "font-bold bg-white bg-opacity-50 "
                     : ""
-                } py-1 px-2 rounded-md`}
+                }`}
             >
               <Link href={url + buildQueryParams(searchParams)}>{option}</Link>
             </li>
