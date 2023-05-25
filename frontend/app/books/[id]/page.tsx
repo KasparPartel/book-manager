@@ -2,6 +2,7 @@ import { Book } from "@/models/book";
 import CheckoutChanger from "@/components/CheckoutChanger";
 import SaveBook from "@/app/books/SaveBook";
 import PageHeading from "@/components/styling/PageHeading";
+import DeleteBook from "@/app/books/[id]/DeleteBook";
 
 const getBook = async (id: string): Promise<Book> => {
   const url = process.env.NEXT_PUBLIC_API_ROOT + `book/getBook?bookId=${id}`;
@@ -32,6 +33,7 @@ export default async function BookPage({ params }: BookPageProps) {
       <p>{book.year}</p>
       <p>{book.genre}</p>
       <hr />
+      <DeleteBook id={book.id} />
     </article>
   );
 }

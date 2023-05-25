@@ -27,8 +27,6 @@ export default function ReturnBook({ checkoutId }: ReturnBookProps) {
   ) => {
     e.preventDefault();
 
-    console.log("deleting " + checkoutId);
-
     try {
       await deleteCheckout(checkoutId ?? "");
       router.refresh();
