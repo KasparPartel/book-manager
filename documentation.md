@@ -23,7 +23,8 @@ I tried to keep my code clean and make components reusable to minimize code repe
 
 For me the hardest task was the implementation of paging and sorting as I haven't done this before and it worked
 a bit differently than I imagined.
+Other than that, everything went pretty smoothly.
 
-All in all the task was interesting but I think it was too long. 
+All in all the task was interesting and I really learned a lot. 
 
 
