@@ -79,29 +79,35 @@ export default function CheckoutChanger({ book }: CheckoutChangerProps) {
     };
   };
 
-  return book.status == "AVAILABLE" ? (
-    modalOpen ? (
-      <Modal setModalOpen={setModalOpen}>
-        <ModalForm onSubmit={handleSubmit}>
-          <ModalTextInput
-            name="firstName"
-            placeholder="First name"
-            onChange={handleChange("firstName")}
-            required={true}
-          />
-          <ModalTextInput
-            name="lastName"
-            placeholder="Last name"
-            onChange={handleChange("lastName")}
-            required={true}
-          />
-          <ModalButton value="Checkout book" />
-        </ModalForm>
-      </Modal>
-    ) : (
-      <p onClick={switchModalOpen}>Checkout book</p>
-    )
-  ) : (
-    <p>Book not available</p>
+  return (
+    <>
+      <button
+        className="p-2 bg-blue-500 text-white font-bold rounded-lg grow-0 hover:bg-blue-700 disabled:bg-blue-300"
+        onClick={switchModalOpen}
+        disabled={book.status != "AVAILABLE" && true}
+      >
+        {book.status == "AVAILABLE" ? "Checkout book" : "Not available"}
+      </button>
+
+      {modalOpen && (
+        <Modal setModalOpen={setModalOpen}>
+          <ModalForm onSubmit={handleSubmit}>
+            <ModalTextInput
+              name="firstName"
+              placeholder="First name"
+              onChange={handleChange("firstName")}
+              required={true}
+            />
+            <ModalTextInput
+              name="lastName"
+              placeholder="Last name"
+              onChange={handleChange("lastName")}
+              required={true}
+            />
+            <ModalButton value="Checkout book" />
+          </ModalForm>
+        </Modal>
+      )}
+    </>
   );
 }

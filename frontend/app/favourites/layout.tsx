@@ -3,5 +3,5 @@ export default function FavouritesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return <>{children}</>;
 }

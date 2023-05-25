@@ -3,5 +3,5 @@ export default function CheckoutsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section className="flex flex-col">{children}</section>;
+  return <>{children}</>;
 }

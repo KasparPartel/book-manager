@@ -21,5 +21,7 @@ export default function buildQueryParams(queryParams: Partial<SearchParams>) {
 
   path = path.slice(0, path.length - 1); // to remove last &
 
+  console.log(path);
+
   return path;
 }

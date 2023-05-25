@@ -2,6 +2,7 @@
 
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
+import { IconContext } from "react-icons/lib";
 
 interface SaveBookProps {
   bookId: string;
@@ -32,7 +33,9 @@ export default function SaveBook({ bookId }: SaveBookProps) {
 
   return (
     <button onClick={(e) => handleClick(e)}>
-      {isPresent(bookId) ? <AiFillHeart /> : <AiOutlineHeart />}
+      <IconContext.Provider value={{ size: "1.5em" }}>
+        {isPresent(bookId) ? <AiFillHeart /> : <AiOutlineHeart />}
+      </IconContext.Provider>
     </button>
   );
 }

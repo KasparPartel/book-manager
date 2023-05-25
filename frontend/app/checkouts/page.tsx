@@ -6,6 +6,7 @@ import SortingFilter from "@/components/SortingFilter";
 import { SearchParams } from "@/util/params";
 import createFilter from "@/util/filterFactory";
 import { buildParams } from "@/util/rest";
+import PageHeading from "@/components/styling/PageHeading";
 
 const getCheckouts = async (filter: PageRequest) => {
   const url =
@@ -27,11 +28,11 @@ export default async function CheckoutsPage({
   const page: Page<Checkout> = await getCheckouts(filter);
 
   return (
-    <>
+    <section className="flex flex-col">
       {
         // TODO move all of this into a layout to share between books and checkouts
       }
-      <h1 className="text-xl font-bold">Checkouts</h1>
+      <PageHeading text="Checkouts" />
       <PaginationFilter
         url="/checkouts"
         totalPages={page.totalPages}
@@ -60,6 +61,6 @@ export default async function CheckoutsPage({
           </article>
         ))}
       </section>
-    </>
+    </section>
   );
 }
