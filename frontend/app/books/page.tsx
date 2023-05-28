@@ -9,6 +9,7 @@ import createFilter from "@/util/filterFactory";
 import BookShort from "@/app/books/BookShort";
 import PageHeading from "@/components/styling/PageHeading";
 import FilterContainer from "@/components/styling/FilterContainer";
+import { Suspense } from "react";
 
 const getBooks = async (filter: PageRequest) => {
   const url =
@@ -29,28 +30,33 @@ export default async function BooksPage({ searchParams }: BooksPageProps) {
     <section className="flex flex-col gap-6">
       <PageHeading text="Book Library" />
       <FilterContainer>
-        <PaginationFilter
-          url="/books"
-          totalPages={page.totalPages}
-          searchParams={searchParams}
-        />
-        <div className="flex gap-2">
-          <ItemsPerPageFilter
+        <Suspense fallback={<p>Loading filters...</p>}>
+          <PaginationFilter
             url="/books"
-            options={[35, 50, 75]}
+            totalPages={page.totalPages}
             searchParams={searchParams}
           />
-          <SortingFilter
-            url="/books"
-            sortOn={"title"}
-            searchParams={searchParams}
-          />
-        </div>
+          <div className="flex gap-2">
+            <ItemsPerPageFilter
+              url="/books"
+              options={[35, 50, 75]}
+              searchParams={searchParams}
+            />
+            <SortingFilter
+              url="/books"
+              sortOn={"title"}
+              searchParams={searchParams}
+            />
+          </div>
+        </Suspense>
       </FilterContainer>
+
       <section className="flex flex-col gap-2">
-        {page.content.map((book) => (
-          <BookShort key={book.id} book={book} />
-        ))}
+        <Suspense fallback={<p>Loading books...</p>}>
+          {page.content.map((book) => (
+            <BookShort key={book.id} book={book} />
+          ))}
+        </Suspense>
       </section>
     </section>
   );

@@ -3,6 +3,7 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { IconContext } from "react-icons/lib";
+import { useEffect, useState } from "react";
 
 interface SaveBookProps {
   bookId: string;
@@ -10,8 +11,15 @@ interface SaveBookProps {
 
 export default function SaveBook({ bookId }: SaveBookProps) {
   const router = useRouter();
-  const data = localStorage.getItem("saved-book-ids");
-  const bookIds: string[] = data ? JSON.parse(data) : [];
+  // const data = localStorage.getItem("saved-book-ids");
+  // const bookIds: string[] = data ? JSON.parse(data) : [];
+
+  const [bookIds, setBookIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("saved-book-ids");
+    setBookIds(data ? JSON.parse(data) : null);
+  }, []);
 
   const isPresent = (id: string) => {
     return bookIds ? bookIds.includes(id) : false;

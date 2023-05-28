@@ -1,5 +1,3 @@
-"use client";
-
 import React, { SetStateAction, useEffect, useState } from "react";
 
 interface AlertProps {
@@ -19,7 +17,7 @@ export default function Alert({ setShowAlert, children }: AlertProps) {
       setShowAlert(false);
       clearTimeout(timeId);
     };
-  }, []);
+  }, [setShowAlert]);
 
   if (!show) return null;
   return (

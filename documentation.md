@@ -1,5 +1,14 @@
 # DOCUMENTATION
 
+## How to run
+
+1. Run the Spring Boot LibraryApplication from IDE
+2. Create `.env.local` file inside frontend folder and paste inside `NEXT_PUBLIC_API_ROOT=http://localhost:8080/api/`
+3. Run `npm run build` to create a production build
+4. Run `npm run start` to start the frontend
+
+## Info
+
 I chose to switch the frontend from `angular` to `NEXTJS` as I had no previous experience working with
 angular but did have working with `React`. I wanted to try out nextjs server side components and thought
 this project would be perfect for that.
