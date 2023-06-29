@@ -7,6 +7,9 @@
 3. Run `npm run build` to create a production build
 4. Run `npm run start` to start the frontend
 
+## Project info
+Project is a book manager application. Users could see all the books, make CRUD operations with them, checkout books, delete and update books. Users could also add books to favorites so they could easily access them later.
+
 ## Info
 
 I chose to switch the frontend from `angular` to `NEXTJS` as I had no previous experience working with
